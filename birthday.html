@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Mahal! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+    
+    /* PICTURE FRAME FOR CAMILLE */
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ff007f;
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.6), 0 0 40px rgba(0, 240, 255, 0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .profile-img-container:hover {
+            transform: scale(1.08) rotate(3deg);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Keeps her photo from stretching or distorting */
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0b0114;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* SURPRISE LOCK SCREEN */
+        #lockScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #200122 0%, #000000 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-out, visibility 1s;
+        }
+
+        .lock-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 0, 128, 0.3);
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 0, 128, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .lock-box h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff007f;
+            text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+        }
+
+        .lock-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 2px solid #ff007f;
+            background: transparent;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .lock-box input:focus {
+            box-shadow: 0 0 15px #ff007f;
+        }
+
+        .lock-box button {
+            background: linear-gradient(45deg, #ff007f, #ff5e62);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
+            transition: 0.3s;
+        }
+
+        .lock-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 0, 128, 0.6);
+        }
+
+        .error-msg {
+            color: #ff5e62;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* MAIN CONTENT HOLDER */
+        #mainContainer {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+            width: 90%;
+            max-width: 650px;
+        }
+
+        /* GLOWING BIRTHDAY CARD */
+        .birthday-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 50px 30px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 
+                        inset 0 0 30px rgba(255, 0, 128, 0.1);
+            position: relative;
+        }
+
+        .birthday-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #ff007f, transparent, #00f0ff);
+            border-radius: 40px;
+            z-index: -1;
+            margin: 1px;
+            opacity: 0.4;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 70px;
+            background: linear-gradient(45deg, #ff007f, #ffaa00, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 0, 127, 0.3);
+            margin-bottom: 10px;
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        .sub-name {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #ff007f;
+            margin-bottom: 25px;
+        }
+
+        .message {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #e0d5ea;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .mahal-tag {
+            font-family: 'Great Vibes', cursive;
+            font-size: 40px;
+            color: #ff5e62;
+            display: block;
+            margin-top: 15px;
+            text-shadow: 0 0 10px rgba(255, 94, 98, 0.5);
+        }
+
+        /* CANVAS BACKGROUNDS */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #interactionCanvas {
+            pointer-events: auto;
+            z-index: 5;
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.4)); }
+            100% { filter: drop-shadow(0 0 25px rgba(255, 0, 127, 0.8)) drop-shadow(0 0 10px #00f0ff); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Web Audio API Synth Trigger for Chimes (No external files needed) -->
+    <div id="lockScreen">
+        <div class="lock-box">
+            <h2>A Surprise is Waiting for You... 🔑</h2>
+            <input type="password" id="passwordInput" placeholder="Enter password (hint: mahal)" onkeydown="if(event.key === 'Enter') verifyPassword()">
+            <button onclick="verifyPassword()">Open Surprise ✨</button>
+            <div id="errorMsg" class="error-msg">Incorrect password, please try again, my mahal! 🌸</div>
+        </div>
+    </div>
+
+    <!-- Background Effects Art Layers -->
+    <canvas id="confettiCanvas"></canvas>
+    <canvas id="interactionCanvas"></canvas>
+
+    <!-- Main Surprise Content Box -->
+    <div id="mainContainer">
+        <div class="birthday-card">
+            <div class="profile-img-container">
+                <img src="images/camille.jpg" class="profile-img" alt="Camille">
+            </div>
+            <h1>Happy Birthday</h1>
+            <div class="sub-name">Camille Mabuting</div>
+            <p class="message">
+                To the most beautiful, wonderful, and amazing person in my life. May your day be filled with endless laughter, boundless happiness, and all the love your heart can hold. Thank you for being my constant joy. 
+                <span class="mahal-tag">I love you always, my mahal! ❤️</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const confettiCanvas = document.getElementById("confettiCanvas");
+        const confettiCtx = confettiCanvas.getContext("2d");
+        const interactCanvas = document.getElementById("interactionCanvas");
+        const interactCtx = interactCanvas.getContext("2d");
+
+        let confettiParticles = [];
+        let heartParticles = [];
+        let animationActive = false;
+
+        function resizeCanvases() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+            interactCanvas.width = window.innerWidth;
+            interactCanvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvases);
+        resizeCanvases();
+
+        // 1. SYSTEM AUDIO SYNTH GENERATOR (No file system attachments required)
+        function playChimeMusic() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioCtx = new AudioContext();
+                const notes = [523.25, 659.25, 783.99, 987.77, 1046.50]; // Beautiful crystalline major chord
+                
+                notes.forEach((freq, index) => {
+                    setTimeout(() => {
+                        let osc = audioCtx.createOscillator();
+                        let gainNode = audioCtx.createGain();
+                        
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                        
+                        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.5);
+                        
+                        osc.connect(gainNode);
+                        gainNode.connect(audioCtx.destination);
+                        
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 1.5);
+                    }, index * 180);
+                });
+            } catch(e) { console.log("Audio contexts blocked or unsupported"); }
+        }
+
+        // 2. PASSWORD VERIFICATION ENTRY ENGINE
+        function verifyPassword() {
+            const input = document.getElementById("passwordInput").value.trim().toLowerCase();
+            const error = document.getElementById("errorMsg");
+
+            if (input === "mahal") {
+                // Fade Lock Screen
+                const lock = document.getElementById("lockScreen");
+                lock.style.opacity = "0";
+                setTimeout(() => lock.style.display = "none", 1000);
+
+                // Open Main View Frame Layout
+                const main = document.getElementById("mainContainer");
+                main.style.opacity = "1";
+                main.style.transform = "scale(1)";
+                main.style.pointerEvents = "auto";
+
+                // Trigger Engine States
+                animationActive = true;
+                playChimeMusic();
+                initConfetti();
+                loop();
+            } else {
+                error.style.display = "block";
+                document.getElementById("passwordInput").value = "";
+            }
+        }
+
+        // 3. CONFETTI ENGINE CONSTRUCTOR
+        function initConfetti() {
+            for (let i = 0; i < 150; i++) {
+                confettiParticles.push({
+                    x: Math.random() * confettiCanvas.width,
+                    y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * confettiCanvas.height,
+                    color: `hsl(${Math.random() * 360}, 100%, 65%)`,
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+        }
+
+        function drawConfetti() {
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            confettiParticles.forEach((p, idx) => {
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                p.x += Math.sin(p.tiltAngle);
+                p.tilt = Math.sin(p.tiltAngle - idx / 3) * 15;
+
+                if (p.y > confettiCanvas.height) {
+                    confettiParticles[idx] = p;
+                    p.x = Math.random() * confettiCanvas.width;
+                    p.y = -20;
+                    p.tilt = Math.random() * 10 - 5;
+                }
+
+                confettiCtx.beginPath();
+                confettiCtx.lineWidth = p.r;
+                confettiCtx.strokeStyle = p.color;
+                confettiCtx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                confettiCtx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                confettiCtx.stroke();
+            });
+        }
+
+        // 4. INTERACTIVE MOUSE FLOATING HEART GENERATOR
+        function createHeart(x, y) {
+            heartParticles.push({
+                x: x,
+                y: y,
+                size: Math.random() * 15 + 8,
+                speedX: Math.random() * 3 - 1.5,
+                speedY: Math.random() * -3 - 1,
+                opacity: 1,
+                hue: Math.random() * 30 + 340 // Beautiful romance pinks and deep crimson reds
+            });
+        }
+
+        function drawHearts() {
+            interactCtx.clearRect(0, 0, interactCanvas.width, interactCanvas.height);
+            
+            for (let i = heartParticles.length - 1; i >= 0; i--) {
+                let p = heartParticles[i];
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.opacity -= 0.015;
+
+                if (p.opacity <= 0) {
+                    heartParticles.splice(i, 1);
+                    continue;
+                }
+
+                interactCtx.save();
+                interactCtx.globalAlpha = p.opacity;
+                interactCtx.fillStyle = `hsl(${p.hue}, 100%, 60%)`;
+                interactCtx.translate(p.x, p.y);
+                
+                // Pure Canvas Path Architecture Vectors drawing a crisp single heart
+                interactCtx.beginPath();
+                interactCtx.moveTo(0, 0);
+                interactCtx.bezierCurveTo(-p.size / 2, -p.size / 2, -p.size, p.size / 3, 0, p.size);
+                interactCtx.bezierCurveTo(p.size, p.size / 3, p.size / 2, -p.size / 2, 0, 0);
+                interactCtx.closePath();
+                interactCtx.fill();
+                interactCtx.restore();
+            }
+        }
+
+        // Mouse Move and Tap Listeners
+        window.addEventListener('mousemove', (e) => {
+            if(!animationActive) return;
+            if(Math.random() < 0.25) createHeart(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if(!animationActive) return;
+            createHeart(e.touches[0].clientX, e.touches[0].clientY);
+        });
+
+        // 5. MASTER ANIMATION LOOP
+        function loop() {
+            if (!animationActive) return;
+            drawConfetti();
+            drawHearts();
+            requestAnimationFrame(loop);
+        }
+    </script>
+</body>
+</html>
